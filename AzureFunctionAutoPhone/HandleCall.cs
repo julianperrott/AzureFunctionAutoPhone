@@ -17,11 +17,11 @@ namespace AzureFunctionAutoPhone
     public static class HandleCall
     {
         [FunctionName("HandleCall")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequest req, TraceWriter log)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequest req, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
 
-            foreach(var key in req.Form.Keys)
+            foreach(var key in req?.Form?.Keys)
             {
                 log.Info($"{key} = {req.Form[key]}");
             }
