@@ -44,12 +44,12 @@ namespace AzureFunctionAutoPhone
             }
 
             VoiceResponse voiceResponse = new VoiceResponse();
-
             var gather = new Gather(input: "dtmf, speech, dtmf speech", timeout: 30, numDigits: 1, language: "en-GB", speechTimeout: "1");
             gather.Say("Hello", language: "en-GB", voice: "man");
+            voiceResponse.Append(gather);
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            response.Content = new StringContent("", Encoding.ASCII, "application/xml");
+            response.Content = new StringContent(voiceResponse.ToString(), Encoding.ASCII, "application/xml");
             return response;
         }
     }
