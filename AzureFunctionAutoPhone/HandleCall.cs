@@ -13,6 +13,7 @@ namespace AzureFunctionAutoPhone
     using System.Net;
     using System.Text;
     using Twilio.TwiML.Voice;
+    using System;
 
     public static class HandleCall
     {
@@ -21,9 +22,25 @@ namespace AzureFunctionAutoPhone
         {
             log.Info("C# HTTP trigger function processed a request.");
 
-            foreach(var key in req?.Form?.Keys)
+            try
             {
-                log.Info($"{key} = {req.Form[key]}");
+                foreach (var key in req?.Form?.Keys)
+                {
+                    log.Info($"{key} = {req.Form[key]}");
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Info(ex.Message);
+            }
+
+            try
+            {
+                log.Info(req.Body.Length.ToString());
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex.Message);
             }
 
             VoiceResponse voiceResponse = new VoiceResponse();
